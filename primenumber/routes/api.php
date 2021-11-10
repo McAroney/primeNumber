@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PrimenumberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,42 +22,13 @@ Route::get('/equals', function (Request $request) {
     
     $res = $x + $y;
 
-    function checkPrime($number) {
-        (bool) $prime = false;
-
-        for ($i = 2; $i<=$number;$i++) { /* Smallest prime number is 2 */
-
-            if ($number%$i==0) { /* Going in iterative order, last possible divider is the number itself */
-                $prime = ($number == $i) ? true : false; 
-                break;  
-            }
-
-        }
-
-        return $prime;
-    };
-
-    $isPrime = checkPrime($res);
+    $isPrime = PrimenumberController::checkPrime($res);
     return Response::json(array('result' => $res, 'isPrime' => $isPrime ));
 });
 
 Route::get('/checkPrime', function (Request $request) {
     $x = $request->number;
-    function checkPrime($number) {
-        (bool) $prime = false;
 
-        for ($i = 2; $i<=$number;$i++) { /* Smallest prime number is 2 */
-
-            if ($number%$i==0) { /* Going in iterative order, last possible divider is the number itself */
-                $prime = ($number == $i) ? true : false; 
-                break;  
-            }
-
-        }
-
-        return $prime;
-    };
-
-    $isPrime = checkPrime($x);
+    $isPrime = PrimenumberController::checkPrime($x);
     return Response::json(array('number' => $x, 'isPrime' => $isPrime ));
 });
