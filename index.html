@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prime?</title>
+</head>
+<body>
+
+    <div class="formfield">
+        <form id="form"  action="">
+            <input type="number" class="x"> + <input type="number" class="y">
+            <input type="submit" value="=">
+        </form>
+        <div class="results">
+            <span class="isprimex"><p></p></span>
+            <span class="isprimey"><p></p></span>
+            <span class="equals"><p></p></span>
+            
+        </div>
+    </div>
+</body>
+<script>
+
+$('.x').change(function () {
+    var x = $('.x').val();
+
+    $.ajax({
+        url: "http://localhost:8000/api/checkPrime?number=" +x
+        }).done(function(data) {
+            number = data.number;
+            verb = data.isPrime? "IS" : "IS NOT";
+            word = number +" "+ verb +" a prime number!";
+        $(".isprimex p").text(word);
+    });
+
+});
+
+$('.y').change(function () {
+    var y = $('.y').val();
+
+    $.ajax({
+        url: "http://localhost:8000/api/checkPrime?number=" +y
+        }).done(function(data) {
+            number = data.number;
+            verb = data.isPrime? "IS" : "IS NOT";
+            word = number +" "+ verb +" a prime number!";
+        $(".isprimey p").text(word);
+    });
+
+});
+
+$('#form').submit(function (e) {
+    e.preventDefault();
+
+    var x = $('.x').val();
+    var y = $('.y').val();
+
+    $.ajax({
+        url: "http://localhost:8000/api/equals?x=" +x +"&y=" +y,
+        }).done(function(data) {
+            number = data.result;
+            verb = data.isPrime? "IS" : "IS NOT";
+            word = number +" "+ verb +" a prime number!";
+        $(".equals p").text(word);
+    });
+    
+});
+
+</script>
+</html>
