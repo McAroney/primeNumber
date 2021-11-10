@@ -1,7 +1,7 @@
 # task
 a simple Laravel API and jQuery front
 
-* All primary logic is inside routes/api.php
+* All primary logic is inside routes/api.php that calls PrimenumberController for shared function(s)
 
 # run
     php artisan serve
